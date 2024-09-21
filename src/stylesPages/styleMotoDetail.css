@@ -1,0 +1,206 @@
+#sectioncatalog {
+    background-image: url("../imgs/bg-detalles.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 780px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+#sectioncatalog::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Oscurece la imagen con un overlay */
+    z-index: 2;
+    /* Debe estar debajo de la moto, pero sobre la imagen de fondo */
+}
+
+.breadcrumb {
+    top: 20px;
+    left: 50px;
+    font-size: 1.2rem;
+    color: white;
+    z-index: 10 !important;
+    position: absolute;
+}
+
+.breadcrumb p {
+    margin: 0;
+}
+
+.breadcrumb a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: white;
+}
+
+.titulo-moto-detalle {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.moto-details {
+    color: white;
+    text-align: right;
+    z-index: 3;
+    position: relative;
+    padding-right: 50px;
+    /* Ajuste para pegar el contenido a la derecha */
+}
+
+.modelo {
+    font-size: 1.5rem;
+}
+
+.descripcion-moto {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.precio {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.precio-soles {
+    font-size: 1.5rem;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    z-index: 1;
+    position: relative;
+}
+
+.btn-warning {
+    background-color: #ffcc00;
+    border: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    color: #000;
+    z-index: 4;
+    position: relative;
+}
+
+highlight-text {
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.badge-outline {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #d32f2f;
+    border-radius: 20px;
+    color: #d32f2f;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.main-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.sub-heading {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+
+/* Media Queries para pantallas más pequeñas */
+@media (max-width: 1000px) {
+    .breadcrumb {
+        top: 10px;
+        left: 20px;
+        font-size: 1rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .titulo-moto-detalle {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .moto-details {
+        text-align: center;
+    }
+
+    .img-fluid {
+        max-width: 90%;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .btn-warning {
+        display: block;
+        margin: 20px auto;
+    }
+}
+
+.specs-section {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    /* Color de fondo para la sección */
+    border-top: 1px solid #ddd;
+    /* Línea superior */
+}
+
+.specs-section .spec-icon {
+    width: 50px;
+    /* Tamaño del ícono */
+    margin-bottom: 20px;
+}
+
+.specs-section p {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.specs-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.specs-section span {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.specs-section small {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+@media (max-width: 1000px) {
+    .specs-section {
+        padding-top: 0;
+    }
+
+    .info-responsive+.specs-section {
+        margin-top: 20px;
+    }
+}

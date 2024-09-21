@@ -1,0 +1,99 @@
+.moto-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    background-color: white;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.moto-card:hover {
+    transform: translateY(-5px);
+    background-color: #aa060b;
+    color: white;
+    z-index: 2;
+}
+
+.moto-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    flex-grow: 1;
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.btn-conoce-mas {
+    color: #d32f2f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.moto-card:hover .btn-conoce-mas {
+    color: white;
+}
+.moto-card:hover .card-text {
+    color: white;
+}
+
+.moto-card:hover .card-title {
+    color: white;
+}
+
+
+.badge {
+    position: absolute;
+    top: 10px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 15px;
+    font-weight: bold;
+    z-index: 3;
+}
+
+.badge-nueva {
+    left: 10px;
+    background-color: #d32f2f;
+    color: white;
+}
+
+.badge-cc {
+    right: 10px;
+    background-color: white;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+}
+
+.moto-card:hover .badge-nueva {
+    background-color: white;
+    color: #d32f2f;
+}
+
+.moto-card:hover .badge-cc {
+    background-color: #d32f2f;
+    color: white;
+}

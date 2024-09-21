@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Navbar */
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background: transparent !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+
+.nav-link {
+    color: #ffffffe7;
+}
+
+.nav-link:hover {
+    cursor: pointer;
+    color: #d32f2f !important;
+}
+
+#iconos-perfil-bolsa:hover {
+    cursor: pointer;
+}
+
+/* Media Queries */
+@media (max-width: 991px) {
+
+    .sidebar {
+        width: 75%;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        color: white;
+        z-index: 1050;
+        overflow-y: auto;
+    }
+
+    .d-flex.justify-content-center.align-items-center.gap-3.mx-4 {
+        margin-top: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 15px;
+    }
+
+    #logo {
+        margin: 0 !important;
+    }
+}
