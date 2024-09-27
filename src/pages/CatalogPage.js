@@ -6,6 +6,7 @@ import MotoCard from "../components/MotoCard";
 import "../stylesPages/styleCatalog.css";
 
 export default function CatalogPage() {
+  
   const [marca, setMarca] = useState("todas");
   const [modelo, setModelo] = useState("todos");
   const [anio, setAnio] = useState("");

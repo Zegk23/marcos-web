@@ -1,3 +1,7 @@
+/* ====== Sección Catalogo ====== */
+*{
+    list-style: none;   
+}
 #sectioncatalog {
     background-image: url("../imgs/bg-detalles.webp");
     background-repeat: no-repeat;
@@ -22,18 +26,24 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Oscurece la imagen con un overlay */
     z-index: 2;
-    /* Debe estar debajo de la moto, pero sobre la imagen de fondo */
+}
+.btnquiero{
+    background-color: #F3D553;
+}
+.btnquiero:hover{
+    background-color: #f6df75f8;
+    color: #000;
 }
 
+/* ====== Breadcrumb ====== */
 .breadcrumb {
+    position: absolute;
     top: 20px;
     left: 50px;
     font-size: 1.2rem;
     color: white;
     z-index: 10 !important;
-    position: absolute;
 }
 
 .breadcrumb p {
@@ -49,6 +59,7 @@
     color: white;
 }
 
+/* ====== Detalles de Moto ====== */
 .titulo-moto-detalle {
     font-size: 3rem;
     font-weight: bold;
@@ -61,7 +72,6 @@
     z-index: 3;
     position: relative;
     padding-right: 50px;
-    /* Ajuste para pegar el contenido a la derecha */
 }
 
 .modelo {
@@ -83,6 +93,7 @@
     font-size: 1.5rem;
 }
 
+/* ====== Imágenes ====== */
 .img-fluid {
     max-width: 100%;
     height: auto;
@@ -92,6 +103,7 @@
     position: relative;
 }
 
+/* ====== Botones ====== */
 .btn-warning {
     background-color: #ffcc00;
     border: none;
@@ -102,7 +114,8 @@
     position: relative;
 }
 
-highlight-text {
+/* ====== Textos y Badges ====== */
+.highlight-text {
     font-weight: bold;
     color: #d32f2f;
 }
@@ -118,6 +131,7 @@ highlight-text {
     font-weight: bold;
 }
 
+/* ====== Títulos ====== */
 .main-heading {
     font-size: 2.5rem;
     font-weight: bold;
@@ -129,8 +143,79 @@ highlight-text {
     margin-bottom: 20px;
 }
 
+/* ====== Sección de Especificaciones ====== */
+.specs-section {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ddd;
+}
 
-/* Media Queries para pantallas más pequeñas */
+.specs-section .spec-icon {
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.specs-section p {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.specs-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.specs-section span {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.specs-section small {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* ====== Sección de Menú Lateral ====== */
+.sidebar-menu {
+    padding: 0!important;
+    border-radius: 10px;
+    margin: 0!important;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F3F3F3;
+    border: none;
+    border-radius: 0px;
+    color: #333;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100px;
+    height: 80px;
+    box-sizing: border-box;
+}
+
+.menu-item svg {
+    margin-bottom: 5px;
+}
+
+.menu-item.active {
+    background-color: #1a1a1a;
+    color: white;
+    
+}
+
+.menu-item:hover {
+    background-color: #ddd;
+    color: #000;
+}
+
+
+/* ====== Media Queries ====== */
 @media (max-width: 1000px) {
     .breadcrumb {
         top: 10px;
@@ -159,48 +244,37 @@ highlight-text {
         display: block;
         margin: 20px auto;
     }
-}
 
-.specs-section {
-    padding: 50px 0;
-    background-color: #f9f9f9;
-    /* Color de fondo para la sección */
-    border-top: 1px solid #ddd;
-    /* Línea superior */
-}
-
-.specs-section .spec-icon {
-    width: 50px;
-    /* Tamaño del ícono */
-    margin-bottom: 20px;
-}
-
-.specs-section p {
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-.specs-section h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-.specs-section span {
-    font-size: 1.5rem;
-    font-weight: normal;
-}
-
-.specs-section small {
-    font-size: 0.8rem;
-    color: #888;
-}
-
-@media (max-width: 1000px) {
     .specs-section {
         padding-top: 0;
     }
 
     .info-responsive+.specs-section {
+        margin-top: 20px;
+    }
+}
+@media (max-width: 1200px) {
+    /* Cambia el menú lateral a la parte superior */
+    .sidebar-menu {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px; /* Añade un espacio entre el menú y el contenido */
+    }
+
+    .menu-item {
+        width: 100px;;
+        height: auto;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Asegura que el contenido aparezca debajo del menú */
+    .section-content {
         margin-top: 20px;
     }
 }
