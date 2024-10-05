@@ -2,28 +2,47 @@ import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../stylesPages/styleMotoDetail.css";
 import { useParams } from "react-router-dom";
-import motos from "../data/motos";
 import { Link } from "react-router-dom";
+import axios from "axios";
 // Componentes de Especificaciones
-
-import EspecificacionesDestacado from "../components/EspecificacionesDestacado";
 import EspecificacionesMotor from "../components/EspecificacionesMotor";
 import EspecificacionesFreno from "../components/EspecificacionesFreno";
 import EspecificacionesLlantas from "../components/EspecificacionesLlantas";
 import EspecificacionesSuspension from "../components/EspecificacionesSuspension";
 import EspecificacionesRendimiento from "../components/EspecificacionesRendimiento";
-import EspecificacionesTransmision from "../components/EspecificacionesTransmision";
 import EspecificacionesDimensiones from "../components/EspecificacionesDimensiones";
 
 // UseState y UseEffect para el responsive de la pagina de detalle de la moto.
 import { useState, useEffect } from "react";
 
 export default function MotoDetail() {
+  const [moto, setMoto] = useState(null); // Estado para la moto
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga
+  const [error, setError] = useState(null); // Estado de error
   const { nombre } = useParams();
-  const moto = motos.find((moto) => moto.nombre === nombre);
+
+
+  
+  useEffect(() => {
+    const obtenerMotoPorNombre = async () => {
+      try {
+        setIsLoading(true); // Iniciar la carga
+        const response = await axios.get(
+          `http://localhost:8081/api/motos/nombre/${nombre}`
+        ); // Llamada a la API
+        setMoto(response.data); // Guardar la moto obtenida
+      } catch (error) {
+        console.error("Error al obtener la moto:", error);
+        setError("Error al obtener la moto"); // Manejar error
+      } finally {
+        setIsLoading(false); // Finalizar la carga
+      }
+    };
+    obtenerMotoPorNombre();
+  }, [nombre]);
 
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1000);
-  const [activeSection, setActiveSection] = useState("destacados");
+  const [activeSection, setActiveSection] = useState("motor");
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,6 +56,16 @@ export default function MotoDetail() {
     };
   }, []);
 
+  // Verifica si hay algún error al obtener la moto
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  // Verifica si la moto está cargando o si no se encontró
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
   if (!moto) {
     return <div>Moto no encontrada.</div>;
   }
@@ -48,11 +77,11 @@ export default function MotoDetail() {
   const infoContent = (
     <>
       <p className="modelo">
-        {moto.modelo} - {moto.año}
+        {moto?.modeloMoto} - {moto?.anioFabricacion}
       </p>
-      <p className="descripcion-moto">{moto.descripcion}</p>
-      <p className="precio">USD {moto.precioDolares} mil dolares</p>
-      <p className="precio-soles">S/ {moto.precioSoles} mil soles</p>
+      <p className="descripcion-moto">{moto?.descripcionMoto}</p>
+      <p className="precio">USD {moto?.precioDolares} mil dolares</p>
+      <p className="precio-soles">S/ {moto?.precioSoles} mil soles</p>
       <Link to="/comprar" className="btn btnquiero mt-3">
         Quiero esta moto
       </Link>
@@ -60,13 +89,7 @@ export default function MotoDetail() {
   );
 
   const renderSectionContent = () => {
-    if (!moto) {
-      return <div>Moto no encontrada.</div>;
-    }
-
     switch (activeSection) {
-      case "destacados":
-        return <EspecificacionesDestacado moto={moto} />;
       case "motor":
         return <EspecificacionesMotor moto={moto} />;
       case "frenos":
@@ -77,8 +100,6 @@ export default function MotoDetail() {
         return <EspecificacionesSuspension moto={moto} />;
       case "rendimiento":
         return <EspecificacionesRendimiento moto={moto} />;
-      case "transmision":
-        return <EspecificacionesTransmision moto={moto} />;
       case "dimensiones":
         return <EspecificacionesDimensiones moto={moto} />;
       default:
@@ -92,15 +113,15 @@ export default function MotoDetail() {
         <div className="breadcrumb position-absolute">
           <p className="mt-5 pt-5 ms-5 ps-5">
             <Link to="/">Inicio</Link> / <Link to="/catalogo">Catalogo</Link> /{" "}
-            {moto.marca}
-            <h1 className="titulo-moto-detalle">{moto.nombre}</h1>
+            {moto?.marcaMoto}
+            <h1 className="titulo-moto-detalle">{moto?.nombreMoto}</h1>
           </p>
         </div>
         <div className="row align-items-center justify-content-between">
           <div className="col-lg-6 col-md-12">
             <img
-              src={moto.imagen}
-              alt={moto.nombre}
+              src={moto?.urlImg}
+              alt={moto?.nombreMoto}
               className="img-fluid mt-3"
               style={{ zIndex: 5 }}
               width={800}
@@ -140,7 +161,7 @@ export default function MotoDetail() {
             </svg>
             <p>CILINDRADA</p>
             <h2>
-              {moto.cilindrada}
+              {moto?.motor?.cilindrada}
               <span>cc</span>
             </h2>
           </div>
@@ -157,7 +178,7 @@ export default function MotoDetail() {
             </svg>
             <p>RENDIMIENTO APROX. POR GALÓN</p>
             <h2>
-              {moto.rendimientoPorGalon}
+              {moto?.combustibles?.rendimientoPorGalon}
               <span>km</span>
             </h2>
           </div>
@@ -174,7 +195,7 @@ export default function MotoDetail() {
               <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
             </svg>
             <p>GARANTÍA</p>
-            <h2>{moto.garantia} / 30 MIL KM</h2>
+            <h2>{moto?.garantiaAnios} AÑOS / 30 MIL KM</h2>
             <small>*Lo que ocurra primero</small>
           </div>
         </div>
@@ -187,26 +208,7 @@ export default function MotoDetail() {
       </div>
       <div className="container mb-5">
         <div className="row">
-          <div className="col-1 d-flex flex-column align-items-center  sidebar-menu">
-            <a
-              className={`menu-item px-3 py-3 ${
-                activeSection === "destacados" ? "active" : ""
-              }`}
-              href="#destacados"
-              onClick={() => handleSectionClick("destacados")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-star"
-                viewBox="0 0 16 16"
-              >
-                <path d="M2.866 14.85c-.078.444.36.791.746.593l3.39-1.81a.612.612 0 0 1 .588 0l3.389 1.81c.386.198.824-.149.746-.592l-.649-3.905a.61.61 0 0 1 .175-.548l2.945-2.86c.329-.32.16-.888-.283-.95l-4.055-.59a.61.61 0 0 1-.46-.334L8 2.223 6.36 5.46a.61.61 0 0 1-.46.334l-4.054.59c-.443.062-.612.63-.283.95l2.945 2.86c.148.144.214.35.175.548l-.65 3.905z" />
-              </svg>
-              Destacados
-            </a>
+          <div className="col-1 d-flex flex-column align-items-center sidebar-menu">
             <a
               className={`menu-item px-3 py-3 ${
                 activeSection === "motor" ? "active" : ""
@@ -258,7 +260,7 @@ export default function MotoDetail() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-life-preserver"
+                className="bi bi-life-preserver"
                 viewBox="0 0 16 16"
               >
                 <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m6.43-5.228a7.03 7.03 0 0 1-3.658 3.658l-1.115-2.788a4 4 0 0 0 1.985-1.985zM5.228 14.43a7.03 7.03 0 0 1-3.658-3.658l2.788-1.115a4 4 0 0 0 1.985 1.985zm9.202-9.202-2.788 1.115a4 4 0 0 0-1.985-1.985l1.115-2.788a7.03 7.03 0 0 1 3.658 3.658m-8.087-.87a4 4 0 0 0-1.985 1.985L1.57 5.228A7.03 7.03 0 0 1 5.228 1.57zM8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
@@ -303,26 +305,7 @@ export default function MotoDetail() {
               </svg>
               Rendimiento
             </a>
-            <a
-              className={`menu-item px-3 py-3 ${
-                activeSection === "transmision" ? "active" : ""
-              }`}
-              href="#transmision"
-              onClick={() => handleSectionClick("transmision")}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-gear"
-                viewBox="0 0 16 16"
-              >
-                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.115 2.692l.319.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.115l-.094.319c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.367l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.291.159a1.873 1.873 0 0 0 2.693-1.115l.094-.319z" />
-              </svg>
-              Transmision
-            </a>
+            
             <a
               className={`menu-item px-3 py-3 ${
                 activeSection === "dimensiones" ? "active" : ""
@@ -335,7 +318,7 @@ export default function MotoDetail() {
                 width="16"
                 height="16"
                 fill="currentColor"
-                class="bi bi-rulers"
+                className="bi bi-rulers"
                 viewBox="0 0 16 16"
               >
                 <path d="M1 2v12h12V2H1zm1 1h10v10H2V3zm2 1v1h1V4H4zm0 2v1h1V6H4zm0 2v1h1V8H4zm0 2v1h1v-1H4zm2-6v1h1V4H6zm0 2v1h1V6H6zm0 2v1h1V8H6zm0 2v1h1v-1H6zm2-6v1h1V4H8zm0 2v1h1V6H8zm0 2v1h1V8H8zm0 2v1h1v-1H8zm2-6v1h1V4h-1zm0 2v1h1V6h-1zm0 2v1h1V8h-1zm0 2v1h1v-1h-1z" />

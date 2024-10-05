@@ -1,0 +1,125 @@
+/* Estilos para LoginPage */
+
+.login-wrapper {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+  }
+  
+  .main-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .login-side-image {
+    background: url("https://images.ctfassets.net/x7j9qwvpvr5s/7nXql9csPf9i7QtkEWNau9/2b953dbe8c72b045d9e55a68ec7f6bb3/Panigale-V4-7G-MY25-Model-Preview-1050x650_v02.png") center center/cover no-repeat;
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .login-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .login-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: #fff;
+    border-radius: 0 20px 20px 0;
+  }
+  
+  .login-input-box {
+    width: 330px;
+    box-sizing: border-box;
+  }
+  
+  .login-input-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 10px;
+  }
+  
+  .login-input {
+    height: 45px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 20px;
+    color: #40414a;
+  }
+  
+  .login-input-field label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .login-input:focus ~ label,
+  .login-input:valid ~ label {
+    top: -10px;
+    font-size: 13px;
+    color: #743ae1;
+  }
+  
+  .login-input:focus,
+  .login-input:valid {
+    border-bottom: 1px solid #743ae1;
+  }
+  
+  .login-submit {
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  
+  .login-submit:hover {
+    background: #0056b3;
+  }
+  
+  .login-signin {
+    text-align: center;
+    font-size: small;
+    margin-top: 25px;
+  }
+  
+  .login-signin span a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #007bff;
+    transition: 0.5s;
+  }
+  
+  .login-signin span a:hover {
+    text-decoration: underline;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .login-side-image {
+      display: none;
+    }
+  
+    .login-right {
+      border-radius: 20px;
+    }
+  }
+  

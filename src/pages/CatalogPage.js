@@ -1,38 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Importa axios
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import motos from "../data/motos";
 import MotoCard from "../components/MotoCard";
+import { transformarMoto } from "../services/MotoService";
 import "../stylesPages/styleCatalog.css";
 
 export default function CatalogPage() {
-  
+  const [motos, setMotos] = useState([]);
   const [marca, setMarca] = useState("todas");
   const [modelo, setModelo] = useState("todos");
   const [anio, setAnio] = useState("");
-  const [precio, setPrecio] = useState(100000); 
+  const [precio, setPrecio] = useState(100000);
 
-  // Funciones para manejar cambios en los filtros
+  useEffect(() => {
+    const obtenerMotos = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8081/api/motos/listarMotos"
+        );
+        const motosTransformadas = response.data.map(transformarMoto); 
+        setMotos(motosTransformadas);
+      } catch (error) {
+        console.error("Error al obtener las motos:", error);
+      }
+    };
+    obtenerMotos();
+  }, []);
+
   const handleMarcaChange = (e) => setMarca(e.target.value);
   const handleModeloChange = (e) => setModelo(e.target.value);
   const handleAnioChange = (e) => setAnio(e.target.value);
   const handlePrecioChange = (e) => setPrecio(e.target.value);
 
-  // Método de filtrado
   const filtrarMotos = () => {
     const motosFiltradas = motos.filter((moto) => {
       const cumpleMarca =
         marca === "todas" || moto.marca.toLowerCase() === marca.toLowerCase();
       const cumpleModelo =
-        modelo === "todos" || moto.modelo.toLowerCase() === modelo.toLowerCase();
-      const cumpleAnio = anio === "" || moto.año.toString() === anio;
+        modelo === "todos" ||
+        moto.modelo.toLowerCase() === modelo.toLowerCase();
+      const cumpleAnio =
+        anio === "" || moto.anioFabricacion.toString() === anio;
       const cumplePrecio =
         moto.precioDolares >= 5000 && moto.precioDolares <= precio;
 
       return cumpleMarca && cumpleModelo && cumpleAnio && cumplePrecio;
     });
 
-    console.log("Motos filtradas:", motosFiltradas); 
     return motosFiltradas;
   };
 

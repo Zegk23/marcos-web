@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../stylesPages/styleNotFound.css"; // Asegúrate de crear este archivo con los estilos
+import "../stylesPages/styleNotFound.css"; 
 
 export default function NotFoundPage() {
   return (

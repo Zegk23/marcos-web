@@ -15,12 +15,10 @@ export default function AboutPage() {
     <>
       <div className="container-fluid" id="sectionbg">
         <div className="container text-center my-5 content-center">
-          {/* Main Heading */}
           <div className="main-heading" id="text">
             Nosotros
           </div>
 
-          {/* Sub Heading */}
           <div className="sub-heading" id="text2">
             <strong>Para exploradores de lo nuevo</strong>
           </div>

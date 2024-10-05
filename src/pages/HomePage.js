@@ -168,9 +168,9 @@ export default function HomePage() {
               <div className="card-body position-relative">
                 <i className="bi bi-motorcycle card-icon bg-dark p-2 rounded-circle"></i>
                 <img src={card2} className="img-fluid mb-3" alt="Imagen 2" />
-                <div className="card-title">+ de 15</div>
+                <div className="card-title text-light">+ de 15</div>
                 <div
-                  className="card-subtitle"
+                  className="card-subtitle text-light"
                   style={{ color: "white !important" }}
                 >
                   Millones de motocicletas vendidas.
