@@ -1,7 +1,6 @@
 import '../stylesComponents/StylesEspecificaciones.css';
 
 export default function EspecificacionesLlantas({ moto }) {
-  // Verifica que el objeto "neumaticos" dentro de "moto" esté definido, de lo contrario, usa valores predeterminados.
   const neumaticos = moto?.neumaticos ?? {};
   const neumaticoDelantero = neumaticos.neumaticoDelantero ?? 'No disponible';
   const neumaticoTrasero = neumaticos.neumaticoTrasero ?? 'No disponible';

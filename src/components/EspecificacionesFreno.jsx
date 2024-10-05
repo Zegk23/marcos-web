@@ -1,7 +1,6 @@
 import '../stylesComponents/StylesEspecificaciones.css';
 
 export default function EspecificacionesFreno({ moto }) {
-  // Accede a las propiedades dentro de moto.frenos
   const frenos = moto?.frenos ?? {}; // Asegura que `frenos` esté definido.
   const frenoDelantero = frenos.frenoDelantero ?? 'No disponible';
   const frenoTrasero = frenos.frenoTrasero ?? 'No disponible';

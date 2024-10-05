@@ -2,7 +2,6 @@ import '../stylesComponents/StylesEspecificaciones.css';
 
 export default function EspecificacionesMotor({ moto }) {
 
-  // Accede a las propiedades dentro de moto.motor
   const motor = moto?.motor ?? {}; 
   const cilindrada = motor.cilindrada ?? 'No disponible';
   const numeroCilindros = motor.numeroCilindros ?? 'No disponible';

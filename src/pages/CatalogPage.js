@@ -34,22 +34,23 @@ export default function CatalogPage() {
   const handlePrecioChange = (e) => setPrecio(e.target.value);
 
   const filtrarMotos = () => {
-    const motosFiltradas = motos.filter((moto) => {
+    return motos.filter((moto) => {
       const cumpleMarca =
-        marca === "todas" || moto.marca.toLowerCase() === marca.toLowerCase();
+        marca === "todas" || (moto.marca && moto.marca.toLowerCase() === marca.toLowerCase());
+  
       const cumpleModelo =
-        modelo === "todos" ||
-        moto.modelo.toLowerCase() === modelo.toLowerCase();
+        modelo === "todos" || (moto.modelo && moto.modelo.toLowerCase() === modelo.toLowerCase());
+  
       const cumpleAnio =
-        anio === "" || moto.anioFabricacion.toString() === anio;
+        anio === "" || (moto.anioFabricacion && moto.anioFabricacion.toString() === anio);
+  
       const cumplePrecio =
-        moto.precioDolares >= 5000 && moto.precioDolares <= precio;
-
+        moto.precioDolares && moto.precioDolares <= parseFloat(precio);
+  
       return cumpleMarca && cumpleModelo && cumpleAnio && cumplePrecio;
     });
-
-    return motosFiltradas;
   };
+  
 
   return (
     <>
@@ -122,7 +123,7 @@ export default function CatalogPage() {
                   <option value="todos">Todos</option>
                   <option value="scooter">Scooter</option>
                   <option value="urbano">Urbano</option>
-                  <option value="multipropositos">Multipropositos</option>
+                  <option value="multipropositos">Multipropósitos</option>
                   <option value="trabajo">Trabajo</option>
                   <option value="deportivo">Deportivo</option>
                 </select>

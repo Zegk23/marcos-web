@@ -1,7 +1,6 @@
 import '../stylesComponents/StylesEspecificaciones.css';
 
 export default function EspecificacionesSuspension({ moto }) {
-  // Verifica que el objeto "suspensiones" dentro de "moto" esté definido, de lo contrario, usa valores predeterminados.
   const suspensiones = moto?.suspensiones ?? {};
   const suspensionDelantera = suspensiones.suspensionDelantera ?? 'No disponible';
   const suspensionTrasera = suspensiones.suspensionTrasera ?? 'No disponible';
